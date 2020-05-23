@@ -1,8 +1,15 @@
 {
-    "verbose": true,
     "delay": 500,
-    "watch": [
-        "*.ts"
+    "verbose": true,
+    "ignore": [
+        "**/*.test.ts",
+        "**/*.spec.ts",
+        ".git",
+        "node_modules"
     ],
-    "ext": "ts json"
+    "watch": [
+        "src/*"
+    ],
+    "exec": "npm run dev",
+    "ext": "ts,json"
 }

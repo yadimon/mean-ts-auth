@@ -1,4 +1,4 @@
-import {UserModule} from '../api/models/userModel';
+import {IUserModel, IUserSchema, UserModel} from '../api/models/userModel';
 
 const LocalStrategy = require('passport-local').Strategy;
 const passportJWT = require("passport-jwt");
@@ -16,7 +16,7 @@ module.exports = (passport: any) => {
     });
 
     passport.deserializeUser((id: any, done: any) => {
-        UserModule.findById(id, (err: any, user: any) => {
+        UserModel.findById(id, (err: any, user: any) => {
             done(err, user);
         });
     });
@@ -33,14 +33,14 @@ module.exports = (passport: any) => {
         },
         (req: any, email: any, password: any, done: any) => {
             process.nextTick(() => {
-                UserModule.findOne({'local.email': email}, (err: any, user: any) => {
+                UserModel.findOne({'local.email': email}, (err: any, user: any) => {
                     if (err) {
                         return done(err);
                     }
                     if (user) {
                         return done(null, false, null);
                     } else {
-                        const newUser = new UserModule();
+                        const newUser = new UserModel();
                         newUser.local.email = email;
                         newUser.local.password = newUser.generateHash(password);
                         newUser.save((err2: any) => {
@@ -68,7 +68,7 @@ module.exports = (passport: any) => {
             passReqToCallback: true,
         },
         (req: any, email: any, password: any, done: any) => { // callback with email and password from our form
-            UserModule.findOne({'local.email': email}, (err: any, user: any) => {
+            UserModel.findOne({'local.email': email}, (err: any, user: IUserSchema) => {
                 if (err) {
                     return done(err);
                 }
@@ -95,7 +95,7 @@ module.exports = (passport: any) => {
             secretOrKey: String(process.env.JWT_SECRET),
         },
         (jwtPayload: any, done: any, req: any) => {
-            UserModule.findOne({id: jwtPayload.sub}, (err: any, user: any) => {
+            UserModel.findOne({id: jwtPayload.sub}, (err: any, user: IUserSchema) => {
                 if (err) {
                     return done(err, false);
                 }

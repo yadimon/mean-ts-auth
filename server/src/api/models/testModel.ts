@@ -1,7 +1,8 @@
 import mongoose = require('mongoose');
-import {Schema, Document} from 'mongoose';
+import {Schema, Document, Model} from 'mongoose';
 
-export interface ITest {
+
+interface ITestSchema extends Document {
     name: string;
     email: string;
     type: number;
@@ -13,9 +14,10 @@ const TestSchema: Schema = new Schema({
     type: Number,
 });
 
-export interface ITestModel extends ITest, Document {
+
+export interface ITestModel extends Model<ITestSchema> {
 }
 
-const TestModel = mongoose.model<ITestModel>('Test', TestSchema);
+export const TestModel = mongoose.model<ITestSchema, ITestModel>('Test', TestSchema);
 
 export default TestModel;

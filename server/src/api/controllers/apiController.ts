@@ -1,16 +1,15 @@
-import {Model} from 'mongoose';
-import * as testModel from '../models/testModel';
-import {UserModule, IUserModel} from '../models/userModel';
+import {IUserModel, UserModel} from '../models/userModel';
 
 import TestController from './testController';
 import UserController from './userController';
 
 import * as path from 'path';
 import * as jwt from 'jsonwebtoken';
+import {TestModel, ITestModel} from '../models/testModel';
 
 module.exports = (passport: any) => {
-    const testCtrl = new TestController<Model<testModel.ITestModel>>(testModel.default);
-    const userCtrl = new UserController<Model<IUserModel>>(UserModule);
+    const testCtrl = new TestController<ITestModel>(TestModel);
+    const userCtrl = new UserController<IUserModel>(UserModel);
 
     const publicModule: any = {};
 
@@ -56,8 +55,8 @@ module.exports = (passport: any) => {
             // generate a signed son web token with the contents of user object and return it in the response
             const token = jwt.sign(user.toJSON(),
                 String(process.env.JWT_SECRET),
-                { expiresIn: "1h" },
-                );
+                {expiresIn: "1h"},
+            );
             return res.json({success: true, user, token, expiresIn: 3600});
         })(req, res);
     };

@@ -1,8 +1,8 @@
 import mongoose = require('mongoose');
-import {Schema, Document} from 'mongoose';
+import {Schema, Document, Model} from 'mongoose';
 import * as bcrypt from 'bcrypt-nodejs';
 
-export interface IUser {
+export interface IUserSchema extends Document {
     local: {
         email: string,
         password: string,
@@ -25,6 +25,13 @@ export interface IUser {
         email: string,
         name: string,
     };
+
+    generateHash(pw: string): string,
+
+    validPassword(pw: string): boolean
+}
+
+export interface IUserModel extends Model<IUserSchema> {
 }
 
 const UserSchema: Schema = new Schema({
@@ -52,19 +59,18 @@ const UserSchema: Schema = new Schema({
     },
 });
 
-export interface IUserModel extends IUser, Document {
-}
-
 // generating a hash
-UserSchema.methods.generateHash = (password: any) => {
+UserSchema.methods.generateHash = (password: string) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
 // checking if password is valid
-UserSchema.methods.validPassword = function(password: any) {
+UserSchema.methods.validPassword = function(password: string) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
 // create the model for users and expose it to our app
 
-export const UserModule = mongoose.model<any>('User', UserSchema);
+export const UserModel = mongoose.model<IUserSchema, IUserModel>('User', UserSchema);
+
+export default UserModel;

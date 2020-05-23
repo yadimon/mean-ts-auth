@@ -1,10 +1,11 @@
 import Base from './baseController';
+import {IUserModel} from '../models/userModel';
 
 /**
  * User class
  * */
 
-export default class UserClass<T extends any> extends Base<T> {
+export default class UserClass<T extends IUserModel> extends Base<T> {
     constructor(model: T) {
         super(model);
     }

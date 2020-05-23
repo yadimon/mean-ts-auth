@@ -1,4 +1,6 @@
-export default class Base<T extends any> {
+import {Model} from 'mongoose';
+
+export default class Base<T extends Model<any>> {
     protected sortDir: number = 1;
     protected model: T;
 

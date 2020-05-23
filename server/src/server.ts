@@ -16,7 +16,7 @@ const path = require('path');
 const db: string = String((process.env.NODE_ENV === 'production') ? process.env.PROD_DB : process.env.DEV_DB);
 
 mongoose.connect(db, {
-    useMongoClient: true,
+    useNewUrlParser: true,
     promiseLibrary: global.Promise,
 });
 

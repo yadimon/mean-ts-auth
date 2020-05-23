@@ -1,5 +1,5 @@
 {
-  "name": "mean-ts",
+  "name": "guest-host-register-app",
   "version": "1.0.0",
   "description": "- MongoDB - Angular 4 - Express - Node",
   "main": "index.js",
