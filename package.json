@@ -1,29 +1,27 @@
 {
   "name": "guest-host-register-app",
   "version": "1.0.0",
-  "description": "- MongoDB - Angular 4 - Express - Node",
-  "main": "index.js",
+  "description": "client server guest host app",
   "scripts": {
     "test": "cd server && npm run test && cd ../client && npm run lint && cd ../",
-    "start": "npm run install:server && cd server && npm run start:heroku",
-    "install:dependencies": "npm run install:server && npm run install:client",
-    "buildclient": "cd client && npm run build && cd ../",
+    "start": "cd server && npm run start",
+    "build:client": "cd client && npm run build && cd ../",
+    "postinstall": "npm run install:server && npm run install:client",
     "install:client": "cd client && npm i && cd ../",
-    "install:server": "cd server && npm install && cd ../"
+    "install:server": "cd server && npm install && cd ../",
+    "heroku-postbuild": "npm run build:client",
+    "start:heroku": "cd server && npm run start:heroku && cd ../"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/martinavagyan/mean-ts.git"
+    "url": "git+https://github.com/yadimon/visit-app.git"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/martinavagyan/mean-ts/issues"
-  },
   "engines": {
-    "node": "9.5.0"
+    "node": "12.16.x",
+    "npm": "6.x"
   },
-  "homepage": "https://github.com/martinavagyan/mean-ts#readme",
   "dependencies": {
     "@types/morgan": "^1.7.35"
   }

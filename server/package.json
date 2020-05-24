@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && set DEBUG=express:* && node --inspect dist/server.js",
-    "start:cloud": "tsc && NODE_ENV=production node dist/server.js",
+    "start:cloud": "tsc && set NODE_ENV=production && node dist/server.js",
     "start:heroku": "npm run start:cloud",
     "dev": "nodemon --exec npm start",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",

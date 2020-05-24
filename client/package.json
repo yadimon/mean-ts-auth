@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build": "ng build --prod && cp -r dist/* ../server/public/",
-    "dev-build": "ng build && cp -r dist/* ../server/public/"
+    "build:dev": "ng build && cp -r dist/* ../server/public/"
   },
   "private": true,
   "dependencies": {
@@ -24,9 +24,9 @@
     "core-js": "^2.5.7",
     "jasmine": "^3.1.0",
     "rxjs": "^6.2.0",
+    "rxjs-compat": "^6.0.0-rc.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "rxjs-compat": "^6.0.0-rc.0"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.7",
